@@ -66,6 +66,7 @@ class ModelPipeline:
         )
         self.logger = logging.getLogger(__name__)
         
+        # TODO: I think when shutting down in the middle of processing, message will still be claimed as "Commited"
         self.consumer = KafkaConsumer(
             input_topic,
             bootstrap_servers=bootstrap_servers,
