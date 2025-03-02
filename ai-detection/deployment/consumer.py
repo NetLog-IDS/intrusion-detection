@@ -48,6 +48,15 @@ class ModelPipeline:
         'Flow IAT Std': 'flowIatStd',
         'Min Packet Length': 'packetLengthMin',
     }
+    PREDICTION_TOPICS = {
+        'DoS': 'dos',
+        'PortScan': 'port-scan',
+        'WebAttack': 'web-attack',
+        'Bot': 'bot',
+        'BruteForce': 'brute-force',
+        'Infiltration': 'infiltration',
+        'Benign': 'benign'
+    }
 
     def __init__(
         self,
@@ -124,15 +133,13 @@ class ModelPipeline:
                 
                 try:
                     result = self.process_message(message.value)
-                    
-                    self.producer.send(
-                        self.output_topic,
-                        value=result
-                    )
-                    self.producer.flush()
-                    
-                    self.logger.info(f"Processed and sent message to {self.output_topic}")
-                    
+
+                    topic = self.PREDICTION_TOPICS.get(result["prediction"])
+                    if topic:
+                        self.producer.send(topic, value=result)
+                        self.logger.info(f"Processed and sent message to {topic}")
+                        self.producer.flush()
+                                
                 except Exception as e:
                     self.logger.error(f"Failed to process message: {str(e)}")
                     # TODO: send to dead letter queue
