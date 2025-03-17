@@ -99,7 +99,7 @@ FROM NETWORK_TRAFFIC_SOURCE;
 
 -- Port Scan
 DROP TABLE IF EXISTS port_scan;
-CREATE TABLE potential_port_scan_attacks
+CREATE TABLE port_scan
 AS SELECT
    network_src AS id,
    network_src + '' AS ip_src,
@@ -136,7 +136,7 @@ GROUP BY network_src;
 
 -- DoS (Slowloris)
 DROP TABLE IF EXISTS dos;
-CREATE TABLE potential_slowloris_attacks
+CREATE TABLE dos
 AS SELECT
 	network_dst AS id,
 	network_dst + '' AS ip_dst,
