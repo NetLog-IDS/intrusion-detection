@@ -98,7 +98,7 @@ AS SELECT
 FROM NETWORK_TRAFFIC_SOURCE;
 
 -- Port Scan
-DROP TABLE IF EXISTS potential_port_scan_attacks;
+DROP TABLE IF EXISTS port_scan;
 CREATE TABLE potential_port_scan_attacks
 AS SELECT
    network_src AS id,
@@ -135,7 +135,7 @@ GROUP BY network_src;
 -- HAVING COUNT_DISTINCT(ip_dest + tcp_port_dest) > 1000;
 
 -- DoS (Slowloris)
-DROP TABLE IF EXISTS potential_slowloris_attacks;
+DROP TABLE IF EXISTS dos;
 CREATE TABLE potential_slowloris_attacks
 AS SELECT
 	network_dst AS id,
