@@ -147,7 +147,7 @@ AS SELECT
 	(CASE WHEN count(*) > 100 THEN 'DETECTED' ELSE 'NOT DETECTED' END) AS status
 FROM NETWORK_TRAFFIC_FLAT
 WINDOW TUMBLING (SIZE 60000 SECONDS)
-WHERE (CAST('20' AS INT) / 16) % 2 = 1 AND (CAST('20' AS INT) / 4) % 2 = 1 -- TODO: wkwkwkwk jangan lupa ini yg '20'
+WHERE (CAST(transport_flags AS INT) / 16) % 2 = 1 AND (CAST(transport_flags AS INT) / 4) % 2 = 1
 GROUP BY network_dst;
 
 -- DROP TABLE IF EXISTS potential_slowloris_attacks_debug;
