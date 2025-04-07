@@ -51,6 +51,8 @@ class ModelPipeline:
                 start_time = parser.parse(features["timestamp"])
                 start_time = int(start_time.timestamp() * 1_000_000)
                 end_time = start_time + features["flowDuration"]
+                sniff_time = parser.parse(features["sniffStartTime"])
+                sniff_time = int(sniff_time.timestamp() * 1_000_000)
 
                 if pred:
                     self.detected += 1
@@ -59,7 +61,7 @@ class ModelPipeline:
                     "TIMESTAMP_START": start_time,
                     "TIMESTAMP_END": end_time,
                     "STATUS": "DETECTED" if pred else "NOT DETECTED",
-                    "SNIFF_TIMESTAMP_START": features["sniffStartTime"],
+                    "SNIFF_TIMESTAMP_START": sniff_time,
                     # "METADATA": features,
                 }
 
