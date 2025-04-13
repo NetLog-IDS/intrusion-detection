@@ -83,6 +83,7 @@ AS SELECT
 	WINDOWSTART as timestamp_start,
    	WINDOWEND as timestamp_end,
 	(CASE WHEN count(*) > 100 THEN 'DETECTED' ELSE 'NOT DETECTED' END) AS status,
+	COUNT(*) AS count_packets,
 	MIN(sniff_time) AS sniff_timestamp_start
 FROM NETWORK_TRAFFIC_FLAT
 WINDOW TUMBLING (SIZE 60000 SECONDS)
