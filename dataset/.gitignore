@@ -2,3 +2,4 @@ sudo_password.txt
 logs/
 ExtractFlowsOutput/**.csv
 ExtractFlowsOutput/**.txt
+flowmeter-runner.ipynb
