@@ -152,7 +152,7 @@ class FlowDataConsumer:
         self.output_file = output_file
         self.header_written = False
     
-    def process_messages(self, max_messages=None, timeout_ms=1000):
+    def process_messages(self, max_messages=None, timeout_ms=100):
         """Process JSON messages from Kafka and write to CSV"""
         message_count = 0
         
@@ -198,7 +198,7 @@ def main():
         'bootstrap_servers': 'localhost:19092',
         'topic': 'network-flows',
         'group_id': os.urandom(16).hex(),
-        'output_file': 'flink_tcp_real_time_wednesday.csv'
+        'output_file': 'flink_wedfri_2_train.csv'
     }
     
     consumer = FlowDataConsumer(**kafka_config)

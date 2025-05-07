@@ -42,7 +42,7 @@ def get_json_messages(bootstrap_servers, topic, group_id='python-json-consumer')
         finally:
             consumer.close()
         
-        with open("result.json", "w") as file:
+        with open("slowhttptest_result.json", "w") as file:
             file.write(json.dumps(result_list, indent=2))
         
             

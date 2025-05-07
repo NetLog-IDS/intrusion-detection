@@ -3,7 +3,7 @@ from scapy.all import *
 from scapy.fields import FlagValue
 from datetime import datetime, timedelta
 
-with open("dos_result.json") as file:
+with open("./consumer/slowhttptest_result.json") as file:
     results = json.loads(file.read())
 
 # Deduplication
@@ -32,7 +32,7 @@ for key, value in key_status.items():
 print(time_to_detected_ip)
 
 # Check Packets
-with PcapReader("/mnt/extra/datasets/processed/wednesday_test.pcap") as pr:
+with PcapReader("/mnt/extra/datasets/pcap/wedfri_test.pcap") as pr:
     pcap_reader: PcapReader = pr
 
     detected_idxs: list[str] = []
@@ -72,5 +72,5 @@ with PcapReader("/mnt/extra/datasets/processed/wednesday_test.pcap") as pr:
 
         i += 1
 
-with open("detected_ksql_dos.txt", "w") as file:
+with open("detected_ksql_slowhttptest.txt", "w") as file:
     file.write("\n".join(detected_idxs))

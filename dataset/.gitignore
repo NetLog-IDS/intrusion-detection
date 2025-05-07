@@ -3,3 +3,5 @@ logs/
 ExtractFlowsOutput/**.csv
 ExtractFlowsOutput/**.txt
 flowmeter-runner.ipynb
+OutputMay2025/**.csv
+OutputMay2025/**.txt
