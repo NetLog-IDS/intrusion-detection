@@ -42,7 +42,7 @@ def get_json_messages(bootstrap_servers, topic, group_id='python-json-consumer')
         finally:
             consumer.close()
         
-        with open("slowhttptest_result.json", "w") as file:
+        with open("result_2_portscan.json", "w") as file:
             file.write(json.dumps(result_list, indent=2))
         
             
@@ -53,5 +53,5 @@ def get_json_messages(bootstrap_servers, topic, group_id='python-json-consumer')
 
 # Usage
 bootstrap_servers = 'localhost:19092'  # Change to your Kafka broker address
-topic_name = 'DOS'        # Change to your topic name
+topic_name = 'PORT_SCAN'        # Change to your topic name
 get_json_messages(bootstrap_servers, topic_name, os.urandom(16).hex())
