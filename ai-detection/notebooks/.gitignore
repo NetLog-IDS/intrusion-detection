@@ -1,2 +1,4 @@
 catboost_info/
 wedfri_2_models/**.csv
+models/**.csv
+models2/**.csv
