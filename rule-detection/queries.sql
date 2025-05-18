@@ -58,7 +58,8 @@ AS SELECT
    (CASE WHEN COUNT_DISTINCT(network_dst + transport_dst_port) > 1000 THEN 'DETECTED' ELSE 'NOT DETECTED' END) AS status,
    COUNT_DISTINCT(network_dst + transport_dst_port) AS count,
    COUNT(*) AS count_packets,
-   MIN(sniff_time) AS sniff_timestamp_start
+   MIN(sniff_time) AS sniff_timestamp_start,
+   MAX(sniff_time) AS sniff_timestamp_start_max
 FROM NETWORK_TRAFFIC_FLAT
 WINDOW TUMBLING (SIZE 60000 SECONDS)
 GROUP BY network_src;
@@ -84,7 +85,8 @@ AS SELECT
    	WINDOWEND as timestamp_end,
 	(CASE WHEN count(*) > 100 THEN 'DETECTED' ELSE 'NOT DETECTED' END) AS status,
 	COUNT(*) AS count_packets,
-	MIN(sniff_time) AS sniff_timestamp_start
+	MIN(sniff_time) AS sniff_timestamp_start,
+	MAX(sniff_time) AS sniff_timestamp_start_max
 FROM NETWORK_TRAFFIC_FLAT
 WINDOW TUMBLING (SIZE 60000 SECONDS)
 WHERE (CAST(transport_flags AS INT) / 16) % 2 = 1 AND (CAST(transport_flags AS INT) / 4) % 2 = 1
