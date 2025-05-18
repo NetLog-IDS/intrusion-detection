@@ -53,6 +53,8 @@ class ModelPipeline:
                 end_time = start_time + features["flowDuration"]
                 sniff_time = parser.parse(features["sniffStartTime"])
                 sniff_time = int(sniff_time.timestamp() * 1_000_000)
+                sniff_time_max = parser.parse(features["sniffStartTimeMax"])
+                sniff_time_max = int(sniff_time_max.timestamp() * 1_000_000)
 
                 count_packets = int(features["totalFwdPackets"]) + int(features["totalBwdPackets"])
 
@@ -65,6 +67,7 @@ class ModelPipeline:
                     "STATUS": "DETECTED" if pred else "NOT DETECTED",
                     "COUNT_PACKETS": count_packets,
                     "SNIFF_TIMESTAMP_START": sniff_time,
+                    "SNIFF_TIMESTAMP_START_MAX": sniff_time_max,
                     # "METADATA": features,
                 }
 
