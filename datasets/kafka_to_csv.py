@@ -198,7 +198,7 @@ def main():
         'bootstrap_servers': 'localhost:19092',
         'topic': 'network-flows',
         'group_id': os.urandom(16).hex(),
-        'output_file': './output/train_2_flink.csv'
+        'output_file': './output/train_3_flink.csv'
     }
     
     consumer = FlowDataConsumer(**kafka_config)

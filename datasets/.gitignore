@@ -8,3 +8,4 @@ OutputMay2025/**.txt
 output/**.csv
 output/**.txt
 output-backup/
+output-*/
