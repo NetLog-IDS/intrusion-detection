@@ -54,7 +54,7 @@ class ModelPipeline:
                 
                 sniff_time = int(features["sniffStartTime"])
                 sniff_time_max = int(features["sniffStartTimeMax"])
-                sniff_time_avg = int(features["sniffStartTimeAvg"])
+                sniff_time_avg = float(features["sniffStartTimeAvg"])
                 preprocess_end_time = int(features["preprocessEndTime"])
 
                 count_packets = int(features["totalFwdPackets"]) + int(features["totalBwdPackets"])
