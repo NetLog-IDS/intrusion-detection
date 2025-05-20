@@ -51,10 +51,11 @@ class ModelPipeline:
                 start_time = parser.parse(features["timestamp"])
                 start_time = int(start_time.timestamp() * 1_000_000)
                 end_time = start_time + features["flowDuration"]
-                sniff_time = parser.parse(features["sniffStartTime"])
-                sniff_time = int(sniff_time.timestamp() * 1_000_000)
-                sniff_time_max = parser.parse(features["sniffStartTimeMax"])
-                sniff_time_max = int(sniff_time_max.timestamp() * 1_000_000)
+                
+                sniff_time = int(features["sniffStartTime"])
+                sniff_time_max = int(features["sniffStartTimeMax"])
+                sniff_time_avg = int(features["sniffStartTimeAvg"])
+                preprocess_end_time = int(features["preprocessEndTime"])
 
                 count_packets = int(features["totalFwdPackets"]) + int(features["totalBwdPackets"])
 
@@ -68,6 +69,8 @@ class ModelPipeline:
                     "COUNT_PACKETS": count_packets,
                     "SNIFF_TIMESTAMP_START": sniff_time,
                     "SNIFF_TIMESTAMP_START_MAX": sniff_time_max,
+                    "SNIFF_TIMESTAMP_START_AVG": sniff_time_avg,
+                    "PREPROCESS_END_TIME": preprocess_end_time,
                     # "METADATA": features,
                 }
 
