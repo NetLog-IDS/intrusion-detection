@@ -60,7 +60,9 @@ AS SELECT
    COUNT(*) AS count_packets,
    MIN(sniff_time) AS sniff_timestamp_start,
    MAX(sniff_time) AS sniff_timestamp_start_max,
-   AVG(sniff_time) AS sniff_timestamp_start_avg
+   AVG(sniff_time) AS sniff_timestamp_start_avg,
+   MIN("TIMESTAMP") AS packet_timestamp_min,
+   MAX("TIMESTAMP") AS packet_timestamp_max
 FROM NETWORK_TRAFFIC_FLAT
 WINDOW TUMBLING (SIZE 60000 SECONDS)
 GROUP BY network_src;
@@ -88,7 +90,9 @@ AS SELECT
 	COUNT(*) AS count_packets,
 	MIN(sniff_time) AS sniff_timestamp_start,
 	MAX(sniff_time) AS sniff_timestamp_start_max,
-   	AVG(sniff_time) AS sniff_timestamp_start_avg
+   	AVG(sniff_time) AS sniff_timestamp_start_avg,
+	MIN("TIMESTAMP") AS packet_timestamp_min,
+	MAX("TIMESTAMP") AS packet_timestamp_max
 FROM NETWORK_TRAFFIC_FLAT
 WINDOW TUMBLING (SIZE 60000 SECONDS)
 WHERE (CAST(transport_flags AS INT) / 16) % 2 = 1 AND (CAST(transport_flags AS INT) / 4) % 2 = 1
