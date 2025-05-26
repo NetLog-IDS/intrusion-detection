@@ -3,4 +3,6 @@ wedfri_2_models/**.csv
 models/**.csv
 models2/**.csv
 models-*/
+models*/**.csv
+models*/**.pkl
 modelsps/**.csv
