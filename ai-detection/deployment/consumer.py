@@ -56,6 +56,7 @@ class ModelPipeline:
                 sniff_time_max = int(features["sniffStartTimeMax"])
                 sniff_time_avg = float(features["sniffStartTimeAvg"])
                 preprocess_end_time = int(features["preprocessEndTime"])
+                first_arrival_time = int(features["firstArrivalTime"])
 
                 count_packets = int(features["totalFwdPackets"]) + int(features["totalBwdPackets"])
 
@@ -71,13 +72,14 @@ class ModelPipeline:
                     "SNIFF_TIMESTAMP_START_MAX": sniff_time_max,
                     "SNIFF_TIMESTAMP_START_AVG": sniff_time_avg,
                     "PREPROCESS_END_TIME": preprocess_end_time,
+                    "PREPROCESS_START_TIME": first_arrival_time,
                     # "METADATA": features,
                 }
 
                 if self.output_topic == "PORT_SCAN":
                     result["IP_SRC"] = features["srcIp"]
                 else:
-                    result["IP_DST"] = features["dstIp"]
+                    result["IP_DST"] = features["srcIp"]
                 results.append(result)
             return results
         
