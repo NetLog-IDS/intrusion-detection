@@ -5,7 +5,7 @@ import numpy as np
 from .predictor import Predictor
 
 class PortScanPredictor(Predictor):
-    SELECTED_FEATURES = ['Flow Duration', 'Bwd RST Flags', 'RST Flag Count', 'Packet Length Mean', 'Protocol', 'Fwd Seg Size Min', 'Average Packet Size', 'Flow IAT Max', 'Fwd Packet Length Max', 'Packet Length Max', 'Bwd Packet Length Max', 'Fwd Segment Size Avg', 'Bwd Segment Size Avg', 'Fwd Act Data Pkts', 'Total Length of Fwd Packet', 'Bwd Packet Length Mean', 'FWD Init Win Bytes', 'Total Length of Bwd Packet', 'Bwd Act Data Pkts', 'Packet Length Std']
+    SELECTED_FEATURES = ['Bwd RST Flags', 'Flow Duration', 'RST Flag Count', 'Fwd Segment Size Avg', 'Packet Length Mean', 'Protocol', 'Fwd Seg Size Min', 'Average Packet Size', 'Total Length of Fwd Packet', 'Flow IAT Max', 'Flow Bytes/s', 'Bwd Packets/s', 'Fwd Packet Length Max', 'Down/Up Ratio', 'Packet Length Max', 'Fwd Header Length', 'Bwd Segment Size Avg', 'Bwd Packet Length Max', 'FWD Init Win Bytes', 'Fwd Packet Length Mean', 'Bwd Packet Length Mean', 'Fwd Act Data Pkts', 'Bwd Packet Length Std', 'Total Length of Bwd Packet', 'Bwd Act Data Pkts', 'Packet Length Std', 'Bwd Init Win Bytes']
     FEATURE_TO_JSON_FIELD = {v: k for k, v in Predictor.JSON_FIELD_TO_FEATURE.items()}
 
     def __init__(self):
@@ -17,7 +17,7 @@ class PortScanPredictor(Predictor):
         warnings.filterwarnings("ignore")
 
         try:
-            self.dt = joblib.load("models/port_scan/dt_tuned.pkl")
+            self.dt = joblib.load("models/port_scan/lgbm_tuned_single.pkl")
         except Exception as e:
             print("Invalid Model")
             raise
