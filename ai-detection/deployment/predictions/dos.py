@@ -5,6 +5,7 @@ import numpy as np
 from .predictor import Predictor
 
 class DoSPredictor(Predictor):
+    # Change these according to last training's selected features
     SELECTED_FEATURES = ['Bwd IAT Mean', 'Bwd IAT Max', 'Flow Duration', 'Fwd IAT Max', 'Idle Max', 'Flow IAT Max', 'Fwd Seg Size Min', 'Fwd IAT Total', 'Flow IAT Std', 'Idle Mean', 'Flow IAT Mean', 'Bwd IAT Total', 'Bwd IAT Min', 'Protocol', 'Fwd Bulk Rate Avg', 'Bwd Packet Length Max', 'Fwd Packets/s', 'Fwd IAT Mean', 'Flow Packets/s', 'Fwd PSH Flags', 'FWD Init Win Bytes', 'Total Length of Bwd Packet', 'Bwd Packet Length Mean', 'Bwd RST Flags', 'Fwd Packet Length Min', 'PSH Flag Count', 'SYN Flag Count', 'Bwd Segment Size Avg', 'RST Flag Count', 'Bwd Act Data Pkts', 'FIN Flag Count', 'Packet Length Std']
     FEATURE_TO_JSON_FIELD = {v: k for k, v in Predictor.JSON_FIELD_TO_FEATURE.items()}
 
@@ -17,6 +18,7 @@ class DoSPredictor(Predictor):
         warnings.filterwarnings("ignore")
 
         try:
+            # Change these according to the model used
             self.xg = joblib.load("models/dos/et_tuned_single.pkl")
         except Exception as e:
             print("Invalid Model")
@@ -30,6 +32,7 @@ class DoSPredictor(Predictor):
                 prepared_row[feature] = row[json_field]
             prepared_rows.append(list(prepared_row.values()))
 
+        # Change these according to the model used
         y_predict = self.xg.predict(prepared_rows)
 
         return [(True if pred else False) for pred in y_predict]

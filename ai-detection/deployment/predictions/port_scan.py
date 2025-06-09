@@ -5,6 +5,7 @@ import numpy as np
 from .predictor import Predictor
 
 class PortScanPredictor(Predictor):
+    # Change these according to last training's selected features
     SELECTED_FEATURES = ['Bwd RST Flags', 'Flow Duration', 'RST Flag Count', 'Fwd Segment Size Avg', 'Packet Length Mean', 'Protocol', 'Fwd Seg Size Min', 'Average Packet Size', 'Total Length of Fwd Packet', 'Flow IAT Max', 'Flow Bytes/s', 'Bwd Packets/s', 'Fwd Packet Length Max', 'Down/Up Ratio', 'Packet Length Max', 'Fwd Header Length', 'Bwd Segment Size Avg', 'Bwd Packet Length Max', 'FWD Init Win Bytes', 'Fwd Packet Length Mean', 'Bwd Packet Length Mean', 'Fwd Act Data Pkts', 'Bwd Packet Length Std', 'Total Length of Bwd Packet', 'Bwd Act Data Pkts', 'Packet Length Std', 'Bwd Init Win Bytes']
     FEATURE_TO_JSON_FIELD = {v: k for k, v in Predictor.JSON_FIELD_TO_FEATURE.items()}
 
@@ -17,6 +18,7 @@ class PortScanPredictor(Predictor):
         warnings.filterwarnings("ignore")
 
         try:
+            # Change these according to the model used
             self.dt = joblib.load("models/port_scan/lgbm_tuned_single.pkl")
         except Exception as e:
             print("Invalid Model")
@@ -30,6 +32,7 @@ class PortScanPredictor(Predictor):
                 prepared_row[feature] = row[json_field]
             prepared_rows.append(list(prepared_row.values()))
         
+        # Change these according to the model used
         y_predict = self.dt.predict(prepared_rows)
 
         return [(True if pred else False) for pred in y_predict]
