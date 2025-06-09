@@ -4,12 +4,11 @@ from kafka.errors import NoBrokersAvailable
 
 def get_json_messages(bootstrap_servers, topic, group_id='python-json-consumer'):
     try:
-        # Create consumer with JSON deserializer
         consumer = KafkaConsumer(
             topic,
             bootstrap_servers=bootstrap_servers,
-            auto_offset_reset='earliest',  # Start from beginning
-            enable_auto_commit=False,      # Manual offset control
+            auto_offset_reset='earliest',
+            enable_auto_commit=False,
             group_id=group_id,
             value_deserializer=lambda x: json.loads(x.decode('utf-8'))
         )
@@ -25,13 +24,6 @@ def get_json_messages(bootstrap_servers, topic, group_id='python-json-consumer')
                     json_data = message.value
                     print(f"Received JSON message [Partition: {message.partition}, Offset: {message.offset}]:")
                     result_list.append(json_data)
-                    # print(json.dumps(json_data, indent=2))  # Pretty print JSON
-                    
-                    # Access specific fields
-                    # Example: if your JSON has a 'user_id' field
-                    # user_id = json_data.get('user_id')
-                    # print(f"User ID: {user_id}")
-                    
                 except json.JSONDecodeError as e:
                     print(f"Failed to decode JSON: {str(e)}")
                     print(f"Raw message: {message.value}")
@@ -52,6 +44,6 @@ def get_json_messages(bootstrap_servers, topic, group_id='python-json-consumer')
         print(f"An error occurred: {str(e)}")
 
 # Usage
-bootstrap_servers = 'localhost:19092'  # Change to your Kafka broker address
-topic_name = 'PORT_SCAN'        # Change to your topic name
+bootstrap_servers = 'localhost:19092'  # Change to your Kafka broker address. If you use docker-compose-ksql.yml, you don't need to change it.
+topic_name = 'PORT_SCAN'        # Change to your topic name (can be PORT_SCAN or DOS)
 get_json_messages(bootstrap_servers, topic_name, os.urandom(16).hex())
