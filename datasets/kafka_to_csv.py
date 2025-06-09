@@ -195,10 +195,10 @@ class FlowDataConsumer:
 
 def main():
     kafka_config = {
-        'bootstrap_servers': 'localhost:19092',
+        'bootstrap_servers': 'localhost:19092', # Change this to Kafka broker address
         'topic': 'network-flows',
         'group_id': os.urandom(16).hex(),
-        'output_file': './output/train_3_flink.csv'
+        'output_file': './output/train_3_flink.csv' # Change this to the output file location
     }
     
     consumer = FlowDataConsumer(**kafka_config)
@@ -208,7 +208,7 @@ def main():
         print(f"Writing output to {kafka_config['output_file']}")
         consumer.process_messages()
     except KeyboardInterrupt:
-        print("Consumer stopped by user")
+        print("Consumer stopped by user") # Do not forget to CTRL+C to stop the consume process when there are no messages anymore
     except Exception as e:
         print(f"Error: {e}")
 
